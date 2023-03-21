@@ -1,42 +1,42 @@
-//#include "List.h"
-//
-//template <typename T>
-//list<T>::list() {
-//	Size = 0;
-//	head = nullptr;
-//}
-//
-//template<typename T>
-//list<T>::~list()
-//{
-//	clear();
-//}
-//
-//template<typename T>
-//void list<T>::push_back(T data)
-//{
-//	if (head == nullptr) {
-//		head = new Node<T>(data); // creating the node and returns address
-//	}
-//	else {
-//		Node<T>* current = this->head;
-//
-//		while (current->pNext != nullptr) {
-//			current = current->pNext;
-//		}
-//		current->pNext = new Node<T>(data);
-//	}
-//	Size++;
-//}
-//
-//
-//template<typename T>
-//void list<T>::clear() {
-//	while (Size) {
-//		pop_front();
-//	}
-//}
-//
+#include "List.h"
+
+template <typename T>
+list<T>::list() {
+	Size = 0;
+	head = nullptr;
+	tail = nullptr;
+}
+
+template<typename T>
+list<T>::~list()
+{
+	clear();
+}
+
+template<typename T>
+void list<T>::push_back(T data)
+{
+	Node<T>* node = new Node<T>(data);
+	if (head == nullptr) {
+		head = node;
+		tail = head;
+	}
+	else {
+		tail->pNext = node;
+		node->pPrior = tail;
+		tail = node;
+	}
+	Size++;
+}
+
+
+template<typename T>
+void list<T>::clear() {
+	while (Size) { 
+		pop_front();
+	}
+}
+
 //template<typename T>
 //void list<T>::insert(T data, int index) {
 //	if (index == 0) {
@@ -54,53 +54,63 @@
 //		element->pNext = temp1;
 //	}
 //}
-//
-//template<typename T>
-//void list<T>::pop_front() {
-//	Node<T>* temp = head;
-//	head = head->pNext;
-//	delete temp;
-//	Size--;
-//}
-//
-//template<typename T>
-//void list<T>::pop_back() {
-//	Node<T>* temp1 = head;
-//	Node<T>* temp2 = head;
-//	for (int i = 0; i < Size - 1; i++) {
-//		temp1 = temp1->pNext;
-//		if (i == Size - 2) temp2 = temp1;
-//	}
-//	delete temp1;
-//	temp2->pNext = nullptr;
-//	Size--;
-//}
-//
-//
-//template<typename T>
-//void list<T>::push_front(T data) {
-//	if (head == nullptr) {
-//		head = new Node<T>(data);
-//	}
-//	else {
-//		Node<T>* first_element = new Node<T>(data);
-//		first_element->pNext = head;
-//		head = first_element;
-//	}
-//	Size++;
-//}
-//
-//
-//template<typename T>
-//T& list<T>::operator[](const int index)
-//{
-//	Node<T>* curr = this->head;
-//	int counter = 0;
-//
-//	while (counter - 1 != index - 1) {
-//		curr = curr->pNext;
-//		counter++;
-//	}
-//	return curr->data;
-//}
-//
+
+template<typename T>
+void list<T>::pop_front() {
+	if (head == nullptr) {
+		// the list is empty, do nothing
+		return;
+	}
+	if (head == tail) {
+		// there is only one element in the list
+		delete head;
+		head = nullptr;
+		tail = nullptr;
+	}
+	else {
+		Node<T>* temp = head;
+		head = head->pNext;
+		head->pPrior = nullptr;
+		delete temp;
+	}
+	Size--;
+}
+
+template<typename T>
+void list<T>::pop_back() {
+	Node<T>* temp = tail;
+	tail->pPrior->pNext = nullptr;
+	tail = temp->pPrior;
+	delete temp;
+	Size--;
+}
+
+
+template<typename T>
+void list<T>::push_front(T data) {
+	if (head == nullptr) {
+		head = new Node<T>(data);
+		tail = head;
+	}
+	else {
+		Node<T>* first_element = new Node<T>(data);
+		first_element->pNext = head;
+		head = first_element;
+		head->pNext->pPrior = head;
+	}
+	Size++;
+}
+
+
+template<typename T>
+T& list<T>::operator[](const int index)
+{
+	Node<T>* curr = this->head;
+	int counter = 0;
+
+	while (counter - 1 != index - 1) {
+		curr = curr->pNext;
+		counter++;
+	}
+	return curr->data;
+}

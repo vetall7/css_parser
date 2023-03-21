@@ -40,6 +40,17 @@ int String::size() {
 }
 
 
+String::String(const String& other)
+{
+	length = other.length;
+	str = new char[length + 1];
+	for (int i = 0; i < length; i++) {
+		str[i] = other.str[i];
+	}
+	str[length] = '\0';
+}
+
+
 void String::Print() {
 	cout << str << endl;
 }
@@ -79,4 +90,5 @@ String::String(const char* str) {
 String::~String() {
 	delete[] str;
 }
+
 

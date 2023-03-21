@@ -18,4 +18,5 @@ public:
 	bool operator==(const String& other);
 	char& operator[](int i);
 	void append(const char a);
+	String(const String& other);
 };
