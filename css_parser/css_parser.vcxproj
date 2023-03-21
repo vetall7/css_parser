@@ -128,9 +128,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="css_parser.cpp" />
+    <ClCompile Include="List.cpp" />
     <ClCompile Include="string.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Attributes.h" />
+    <ClInclude Include="List.h" />
+    <ClInclude Include="sekcja.h" />
+    <ClInclude Include="Selectors.h" />
     <ClInclude Include="string.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

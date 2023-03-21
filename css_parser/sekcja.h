@@ -2,9 +2,9 @@
 #include "Attributes.h"
 #include "Selectors.h"
 
-class Sekcja {
-	Sekcja* next;
-	Sekcja* prior;
+
+class Sections {
 	Selectors  selectors;
 	Attributes attributes;
 };
+

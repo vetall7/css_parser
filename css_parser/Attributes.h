@@ -1,9 +1,15 @@
 #pragma once
 #include "string.h"
 
+class Atr {
+	String name;
+	String value;
+};
+
+
 class Attributes {
 private:
-	String* array = new String[8];
+	Atr* array = new Atr[8];
 	size_t length;
 	Attributes* next;
 public:
