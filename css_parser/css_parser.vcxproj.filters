@@ -24,21 +24,36 @@
     <ClCompile Include="List.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Selectors.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sekcja.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="single_attribute.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Attributes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="string.h">
+    <ClInclude Include="string.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Selectors.h">
+    <ClInclude Include="Selectors.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Attributes.h">
+    <ClInclude Include="Attributes.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sekcja.h">
+    <ClInclude Include="sekcja.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="List.h">
+    <ClInclude Include="List.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="single_attribute.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

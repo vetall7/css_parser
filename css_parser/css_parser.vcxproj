@@ -127,16 +127,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Attributes.cpp" />
     <ClCompile Include="css_parser.cpp" />
     <ClCompile Include="List.cpp" />
+    <ClCompile Include="sekcja.cpp" />
+    <ClCompile Include="Selectors.cpp" />
+    <ClCompile Include="single_attribute.cpp" />
     <ClCompile Include="string.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Attributes.h" />
-    <ClInclude Include="List.h" />
-    <ClInclude Include="sekcja.h" />
-    <ClInclude Include="Selectors.h" />
-    <ClInclude Include="string.h" />
+    <ClInclude Include="Attributes.hpp" />
+    <ClInclude Include="List.hpp" />
+    <ClInclude Include="sekcja.hpp" />
+    <ClInclude Include="Selectors.hpp" />
+    <ClInclude Include="single_attribute.hpp" />
+    <ClInclude Include="string.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
