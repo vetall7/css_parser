@@ -24,3 +24,9 @@ void Attributes::append(String name, String value)
 	array[length] = temp;
 	length++;
 }
+
+Single_Attribute Attributes::GetAttr(size_t index)
+{
+	return array[index];
+}
+

@@ -19,4 +19,5 @@ public:
 	char& operator[](int i);
 	void append(const char a);
 	String(const String& other);
+	String cut(size_t i, size_t j);
 };

@@ -1,5 +1,6 @@
 #include "sekcja.hpp"
 #include "List.cpp"
+#include <iostream>
 Sections::Sections()
 {
 	selectors_counter = 0;
@@ -21,7 +22,7 @@ void Sections::Selector_append(String line)
 		selectors_counter++;
 	}
 	else {
-		selectors[selectors_counter-1].append(line);
+		selectors[selectors_counter-1].append(line); 
 	}
 }
 
@@ -52,4 +53,52 @@ void Sections::PrintSelectors()
 void Sections::PrintAttributes()
 {
 	attributes[attributes_counter - 1].Print();
+}
+
+void Sections::New_selector(String str)
+{
+	int index = 0;
+	for (int i = 0; i < str.size(); i++) {
+		if (str[i] == ',') {
+			if (index == 0) {
+				Selector_append(str.cut(index, i));
+			}
+			else {
+				Selector_append(str.cut(index + 1, i));
+			}
+			index = i;
+		}
+	}
+	size_t count = 0;
+	if (index != 0) {
+		count = 1;
+	}
+	Selector_append(str.cut(index + count, str.size()));
+}
+
+void Sections::New_attribute(String str)
+{
+	for (int i = 0; i < str.size(); i++) {
+		if (str[i] == ':') {
+			Attribute_append(str.cut(0, i), str.cut(i + 1, str.size()));
+		}
+	}
+}
+
+bool Sections::is_empty()
+{
+	if (selectors_counter == 0) {
+		return true;
+	}
+	return false;
+}
+
+void Sections::copy_attributes(Sections sec)
+{
+	//for (int j = 0; j <= sec.attributes_counter; j++) {
+		//for (int i = 0; i < 1; i++) {
+			//Attribute_append(sec.attributes[0].GetAttr(0), sec.attributes[0].GetAttr(0));
+		//}
+		//cout << "asdf";
+	//}
 }

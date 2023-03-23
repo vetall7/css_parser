@@ -15,5 +15,9 @@ public:
 	void Attribute_append(String name, String value);
 	void PrintSelectors();
 	void PrintAttributes();
+	void New_selector(String str);
+	void New_attribute(String str);
+	bool is_empty();
+	void copy_attributes(Sections sec);
 };
 

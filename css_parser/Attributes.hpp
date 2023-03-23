@@ -12,4 +12,5 @@ public:
 	size_t GetSize();
 	void Print();
 	void append(String name, String value);
+	Single_Attribute GetAttr(size_t index);
 };

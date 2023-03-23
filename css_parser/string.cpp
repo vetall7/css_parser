@@ -50,6 +50,15 @@ String::String(const String& other)
 	str[length] = '\0';
 }
 
+String String::cut(size_t i, size_t j)
+{
+	String temp;
+	for (int k = i; k < j; k++) {
+		temp.append(str[k]);
+	}
+	return temp;
+}
+
 
 void String::Print() {
 	cout << str << endl;
