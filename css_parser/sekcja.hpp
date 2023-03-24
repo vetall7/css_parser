@@ -17,7 +17,11 @@ public:
 	void PrintAttributes();
 	void New_selector(String str);
 	void New_attribute(String str);
-	bool is_empty();
-	void copy_attributes(Sections sec);
+	int GetSelectorsCounter();
+	int GetAttributesCounter();
+	String GetSelector(int index);
+	String GetSttributeValue(String name);
+	/*bool is_empty();
+	void copy_attributes(Sections sec);*/
 };
 

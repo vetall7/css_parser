@@ -20,4 +20,5 @@ public:
 	void append(const char a);
 	String(const String& other);
 	String cut(size_t i, size_t j);
+	bool is_consist(char a);
 };

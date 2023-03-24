@@ -59,6 +59,16 @@ String String::cut(size_t i, size_t j)
 	return temp;
 }
 
+bool String::is_consist(char a)
+{
+	for (int i = 0; i < length; i++) {
+		if (str[i] == a) {
+			return true;
+		}
+	}
+	return false;
+}
+
 
 void String::Print() {
 	cout << str << endl;

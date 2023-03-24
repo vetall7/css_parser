@@ -30,3 +30,13 @@ Single_Attribute Attributes::GetAttr(size_t index)
 	return array[index];
 }
 
+String Attributes::FindValue(String name)
+{
+	for (int i = 0; i < length; i++) {
+		if (array[i].GetName() == name) {
+			return array[i].GetValue();
+		}
+	}
+	return "";
+}
+

@@ -13,4 +13,5 @@ public:
 	void Print();
 	void append(String name, String value);
 	Single_Attribute GetAttr(size_t index);
+	String FindValue(String name);
 };

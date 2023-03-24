@@ -11,6 +11,11 @@ void Selectors::append(String line)
 	length++;
 }
 
+String Selectors::GetElement(int index)
+{
+	return array[index];
+}
+
 void Selectors::Print()
 {
 	for (int i = 0; i < length; i++) {

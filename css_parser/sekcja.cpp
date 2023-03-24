@@ -85,20 +85,46 @@ void Sections::New_attribute(String str)
 	}
 }
 
-bool Sections::is_empty()
+int Sections::GetSelectorsCounter()
 {
-	if (selectors_counter == 0) {
-		return true;
-	}
-	return false;
+	return ((selectors_counter-1) * 8 + selectors[selectors_counter-1].GetSize());
 }
 
-void Sections::copy_attributes(Sections sec)
+int Sections::GetAttributesCounter()
 {
-	//for (int j = 0; j <= sec.attributes_counter; j++) {
-		//for (int i = 0; i < 1; i++) {
-			//Attribute_append(sec.attributes[0].GetAttr(0), sec.attributes[0].GetAttr(0));
-		//}
-		//cout << "asdf";
-	//}
+	return ((attributes_counter - 1) * 8 + attributes[attributes_counter - 1].GetSize());
 }
+
+String Sections::GetSelector(int index)
+{
+	selectors[index / 8].GetElement(index % 8);
+	return 0;
+}
+
+String Sections::GetSttributeValue(String name)
+{
+	for (int i = 0; i < attributes_counter; i++) {
+		if ( !(attributes[i].FindValue(name) == "")) {
+			return attributes[i].FindValue(name);
+		}
+	}
+	return String();
+}
+
+//bool Sections::is_empty()
+//{
+//	if (selectors_counter == 0) {
+//		return true;
+//	}
+//	return false;
+//}
+
+//void Sections::copy_attributes(Sections sec)
+//{
+//	//for (int j = 0; j <= sec.attributes_counter; j++) {
+//		//for (int i = 0; i < 1; i++) {
+//			//Attribute_append(sec.attributes[0].GetAttr(0), sec.attributes[0].GetAttr(0));
+//		//}
+//		//cout << "asdf";
+//	//}
+//}
