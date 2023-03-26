@@ -1,11 +1,9 @@
 #pragma once
-
-
 template<typename T>
-class list {
+class single1_list {
 public:
-	list();
-	~list();
+	single1_list();
+	~single1_list();
 	int GetSize() {
 		return Size;
 	}
@@ -14,8 +12,8 @@ public:
 	void pop_front();
 	void pop_back();
 	void clear();
-	void remove_element(size_t index);
-	T& search_reverse(int index);
+	void insert(T data, int index);
+
 	T& operator[](const int index);
 
 private:
@@ -25,16 +23,13 @@ private:
 	{
 	public:
 		Node* pNext;
-		Node* pPrior;
 		T data;
-		Node(T data = T(), Node* pPrior = nullptr, Node* pNext = nullptr) {
+		Node(T data = T(), Node* pNext = nullptr) {
 			this->data = data;
 			this->pNext = pNext;
-			this->pPrior = pPrior;
 		}
 	};
 	int Size;
 	Node<T>* head;
-	Node<T>* tail;
 };
 

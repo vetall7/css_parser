@@ -36,24 +36,30 @@
     <ClCompile Include="Attributes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Single_list.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="string.hpp">
+    <ClInclude Include="string.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Selectors.hpp">
+    <ClInclude Include="Selectors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Attributes.hpp">
+    <ClInclude Include="Attributes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sekcja.hpp">
+    <ClInclude Include="sekcja.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="List.hpp">
+    <ClInclude Include="List.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="single_attribute.hpp">
+    <ClInclude Include="single_attribute.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Single_list.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -133,15 +133,17 @@
     <ClCompile Include="sekcja.cpp" />
     <ClCompile Include="Selectors.cpp" />
     <ClCompile Include="single_attribute.cpp" />
+    <ClCompile Include="Single_list.cpp" />
     <ClCompile Include="string.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Attributes.hpp" />
-    <ClInclude Include="List.hpp" />
-    <ClInclude Include="sekcja.hpp" />
-    <ClInclude Include="Selectors.hpp" />
-    <ClInclude Include="single_attribute.hpp" />
-    <ClInclude Include="string.hpp" />
+    <ClInclude Include="Attributes.h" />
+    <ClInclude Include="List.h" />
+    <ClInclude Include="sekcja.h" />
+    <ClInclude Include="Selectors.h" />
+    <ClInclude Include="single_attribute.h" />
+    <ClInclude Include="Single_list.h" />
+    <ClInclude Include="string.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

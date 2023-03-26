@@ -1,5 +1,5 @@
 #pragma once
-#include "string.hpp"
+#include "string.h"
 
 class Single_Attribute {
 	String name;
@@ -9,6 +9,8 @@ public:
 	void SetName(String name);
 	void SetValue(String value);
 	Single_Attribute();
-	String GetName();
-	String GetValue();
+	String GetName() const;
+	String GetValue() const;
+	Single_Attribute(const Single_Attribute& other);
+	Single_Attribute& operator=(const Single_Attribute& other);
 };

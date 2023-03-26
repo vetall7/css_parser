@@ -1,4 +1,4 @@
-#include "List.hpp"
+#include "List.h"
 
 template <typename T>
 list<T>::list() {
@@ -126,7 +126,7 @@ T& list<T>::search_reverse(int index)
 }
 
 template<typename T>
-T& list<T>::operator[](const int index)
+T& list<T>::operator[](const int index) const
 {
 	Node<T>* curr = this->head;
 	int counter = 0;

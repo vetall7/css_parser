@@ -1,4 +1,4 @@
-#include "Attributes.hpp"
+#include "Attributes.h"
 
 Attributes::Attributes()
 {
@@ -10,7 +10,7 @@ size_t Attributes::GetSize()
 	return length;
 }
 
-void Attributes::Print()
+void Attributes::Print() const
 {
 	for (int i = 0; i < length; i++) {
 		array[i].GetName().Print();
@@ -25,12 +25,12 @@ void Attributes::append(String name, String value)
 	length++;
 }
 
-Single_Attribute Attributes::GetAttr(size_t index)
+Single_Attribute Attributes::GetAttr(size_t index) const
 {
 	return array[index];
 }
 
-String Attributes::FindValue(String name)
+String Attributes::FindValue(String name) const
 {
 	for (int i = 0; i < length; i++) {
 		if (array[i].GetName() == name) {
@@ -40,7 +40,7 @@ String Attributes::FindValue(String name)
 	return "";
 }
 
-int Attributes::FindSameName(String name)
+int Attributes::FindSameName(String name) const
 {
 	for (int i = 0;i < length; i++) {
 		if (array[i].GetName() == name) {
@@ -68,5 +68,23 @@ bool Attributes::remove_element(String name)
 		}
 	}
 	return false;
+}
+
+Attributes::Attributes(const Attributes& other) {
+	length = other.length;
+	for (size_t i = 0; i < length; i++) {
+		array[i] = other.array[i];
+	}
+}
+
+Attributes& Attributes::operator=(const Attributes& other) {
+	if (this != &other) {
+		// Copy the data members from the other object
+		length = other.length;
+		for (size_t i = 0; i < length; i++) {
+			array[i] = other.array[i];
+		}
+	}
+	return *this;
 }
 

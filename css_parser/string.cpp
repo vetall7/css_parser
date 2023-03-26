@@ -1,4 +1,4 @@
-#include  "string.hpp"
+#include  "string.h "
 using namespace std;
 
 char& String::operator[](int i) const{
@@ -8,13 +8,13 @@ char& String::operator[](int i) const{
 void String::append(const char a)
 {
 	char *str2 = new char[length + 2];
-	for (int i = 0; i < length; i++) {
-		str2[i] = str[i];
-	} 
+	if (str != nullptr) {
+		memcpy(str2, str, length);
+		delete[] str;
+	}
 	str2[length] = a;
 	str2[length + 1] = '\0';
 	length++;
-	delete[]str;
 	str = str2;
 }
 
@@ -45,12 +45,7 @@ bool operator==(const String& a, const String& b) {
 	if (a.length != b.length) {
 		return false;
 	}
-	for (int i = 0; i < a.length; i++) {
-		if (a.str[i] != b.str[i]) {
-			return false;
-		}
-	}
-	return true;
+	return (memcmp(a.str, b.str, a.length) == 0);
 }
 
 int String::size() const{

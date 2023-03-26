@@ -1,5 +1,4 @@
-#include "sekcja.hpp"
-#include "List.cpp"
+#include "sekcja.h"
 #include <iostream>
 Sections::Sections()
 {
@@ -12,7 +11,7 @@ void Sections::Selector_append(String line)
 	if (selectors_counter == 0) {
 		Selectors selc;
 		selc.append(line);
-		selectors.push_back(selc);
+		selectors.push_back(selc); 
 		selectors_counter++;
 	}
 	else if (selectors[selectors_counter-1].GetSize() == 8) {
@@ -45,12 +44,12 @@ void Sections::Attribute_append(String name, String value)
 	}
 }
 
-void Sections::PrintSelectors()
+void Sections::PrintSelectors() 
 {
 	selectors[selectors_counter - 1].Print();
 }
 
-void Sections::PrintAttributes()
+void Sections::PrintAttributes() 
 {
 	attributes[attributes_counter - 1].Print();
 }
@@ -101,17 +100,17 @@ int Sections::GetSelectorsCounter()
 	return ((selectors_counter-1) * 8 + selectors[selectors_counter-1].GetSize());
 }
 
-int Sections::GetAttributesCounter()
+int Sections::GetAttributesCounter() 
 {
 	return ((attributes_counter - 1) * 8 + attributes[attributes_counter - 1].GetSize());
 }
 
-String Sections::GetSelector(int index)
+String Sections::GetSelector(int index) 
 {
 	return selectors[index / 8].GetElement(index % 8);
 }
 
-String Sections::GetAttributeValue(String name)
+String Sections::GetAttributeValue(String name) 
 {
 	for (int i = 0; i < attributes_counter; i++) {
 		String temp = attributes[i].FindValue(name);
@@ -122,7 +121,7 @@ String Sections::GetAttributeValue(String name)
 	return "";
 }
 
-bool Sections::is_attribute_exists(String name)
+bool Sections::is_attribute_exists(String name) 
 {
 	for (int i = 0; i < attributes_counter; i++) {
 		if (attributes[i].FindSameName(name) != -1) {
@@ -132,7 +131,7 @@ bool Sections::is_attribute_exists(String name)
 	return false;
 }
 
-bool Sections::is_selector_exists(String name)
+bool Sections::is_selector_exists(String name) 
 {
 	for (int i = 0; i < selectors.GetSize(); i++) {
 		if (selectors[i].HasElement(name)) {
@@ -155,4 +154,19 @@ void Sections::removeAttribute(String name)
 			return;
 		}
 	}
+}
+
+Sections::Sections(const Sections& other)
+	: selectors(other.selectors), attributes(other.attributes),
+	selectors_counter(other.selectors_counter),
+	attributes_counter(other.attributes_counter)
+{
+}
+
+Sections& Sections::operator=(const Sections& other)
+{
+	attributes = other.attributes;
+	selectors_counter = other.selectors_counter;
+	attributes_counter = other.attributes_counter;
+	return *this;
 }

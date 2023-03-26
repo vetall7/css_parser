@@ -5,10 +5,12 @@ class String {
 private:
 	char* str;
 	int length;
+	int buffer_size;
 public:
 	String() {
 		str = nullptr;
 		length = 0;
+		buffer_size = 256;
 	}
 	String(const char* str);
 	~String();
@@ -23,6 +25,5 @@ public:
 	String(const String& other);
 	String cut(size_t i, size_t j) const;
 	bool is_consist(char a) const;
-	String(String&& other);
 	String& operator=(String&& other);
 };

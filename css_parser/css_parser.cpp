@@ -1,6 +1,6 @@
-#include "List.hpp"
+#include "List.h"
 #include "List.cpp"
-#include "sekcja.hpp"
+#include "sekcja.h"
 #include <iostream>
 
 
@@ -46,10 +46,16 @@ void counter(list<Sections>& Section, String str) {
         if (num <= Section.GetSize()) {
             cout << num << ",S,? == " << Section[num - 1].GetSelectorsCounter() << endl;
         }
+        else {
+            cout << endl;
+        }
     }
     else if (str[i + 1] == 'A' && str[i + 2] == ',') {
         if (num <= Section.GetSize()) {
             cout << num << ",A,? == " << Section[num - 1].GetAttributesCounter() << endl;
+        }
+        else {
+            cout << endl;
         }
     }
 }
@@ -62,9 +68,12 @@ void print_selector(list<Sections>& Section, String str) {
     }
     int num = to_number(str.cut(0, i));
     int num2 = to_number(str.cut(i + 3, str.size()));
-    cout << num << ",S," << num2 << " == ";
     if (num - 1 < Section.GetSize() && num2 - 1 < Section[num - 1].GetSelectorsCounter()) {
+        cout << num << ",S," << num2 << " == ";
         Section[num - 1].GetSelector(num2 - 1).Print();
+    }
+    else {
+        cout << endl;
     }
 }
 
@@ -83,6 +92,9 @@ void print_attribute(list<Sections>& Section, String str) {
         cout << num << ",A," << temp << " == ";
         Section[num - 1].GetAttributeValue(temp).Print();
     }
+    else {
+        cout << endl;
+    }
 }
 
 void elements_counter(list<Sections>& Section, String str) {
@@ -98,7 +110,13 @@ void elements_counter(list<Sections>& Section, String str) {
                 counter++;
             }
         }
-        cout << temp << ",A,? == " << counter << endl;
+        cout << counter;
+        if (counter == 0) {
+            cout << endl;
+        }
+        else {
+            cout << temp << ",A,? == " << counter << endl;
+        }
     }
     else if (str.is_consist('S')) {
         for (int i = 0; i < Section.GetSize(); i++) {
@@ -106,7 +124,12 @@ void elements_counter(list<Sections>& Section, String str) {
                 counter++;
             }
         }
-        cout << temp << ",S,? == " << counter << endl;
+        if (counter == 0) {
+            cout << endl;
+        }
+        else {
+            cout << temp << ",S,? == " << counter << endl;
+        }
     }
 }
 
@@ -205,6 +228,9 @@ void command_read(list<Sections>& Section) {
                 attribute_remove(Section, str);
                 is_word_end = true;
             }
+            /*else if (zn == '\n') {
+                is_word_end = true;
+            }*/
         }
     }
 }
@@ -238,7 +264,9 @@ void css_read(list<Sections>& Section) {
                 continue;
             }
             if (zn != '\n') { str.append(zn); }
-
+             /*else if (zn == '\n') {
+                is_word_end = true;
+            }*/
             if (is_commands_start(str, zn))
             {
                 command_read(Section);
