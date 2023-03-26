@@ -40,3 +40,33 @@ String Attributes::FindValue(String name)
 	return "";
 }
 
+int Attributes::FindSameName(String name)
+{
+	for (int i = 0;i < length; i++) {
+		if (array[i].GetName() == name) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+
+void Attributes::SetValue(size_t index, String value)
+{
+	array[index].SetValue(value);
+}
+
+bool Attributes::remove_element(String name)
+{
+	for (int i = 0; i < length; i++) {
+		if (array[i].GetName() == name) {
+			for (int j = i; j < length; j++) { 
+				array[j] = array[j + 1];
+			}
+			length--;
+			return true;
+		}
+	}
+	return false;
+}
+

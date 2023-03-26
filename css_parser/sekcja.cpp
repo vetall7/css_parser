@@ -78,11 +78,22 @@ void Sections::New_selector(String str)
 
 void Sections::New_attribute(String str)
 {
+	String name, value;
 	for (int i = 0; i < str.size(); i++) {
 		if (str[i] == ':') {
-			Attribute_append(str.cut(0, i), str.cut(i + 1, str.size()));
+			name = str.cut(0, i);
+			value = str.cut(i + 1, str.size());
+			break;
 		}
 	}
+	for (int i = 0; i < attributes_counter; i++) {
+		int index = attributes[i].FindSameName(name);
+		if (index != -1){
+			attributes[i].SetValue(index, value);
+			return;
+		}
+	}
+	Attribute_append(name, value);
 }
 
 int Sections::GetSelectorsCounter()
@@ -97,34 +108,51 @@ int Sections::GetAttributesCounter()
 
 String Sections::GetSelector(int index)
 {
-	selectors[index / 8].GetElement(index % 8);
-	return 0;
+	return selectors[index / 8].GetElement(index % 8);
 }
 
-String Sections::GetSttributeValue(String name)
+String Sections::GetAttributeValue(String name)
 {
 	for (int i = 0; i < attributes_counter; i++) {
-		if ( !(attributes[i].FindValue(name) == "")) {
-			return attributes[i].FindValue(name);
+		String temp = attributes[i].FindValue(name);
+		if ( !(temp == "")) {
+			return temp;
 		}
 	}
-	return String();
+	return "";
 }
 
-//bool Sections::is_empty()
-//{
-//	if (selectors_counter == 0) {
-//		return true;
-//	}
-//	return false;
-//}
+bool Sections::is_attribute_exists(String name)
+{
+	for (int i = 0; i < attributes_counter; i++) {
+		if (attributes[i].FindSameName(name) != -1) {
+			return true;
+		}
+	}
+	return false;
+}
 
-//void Sections::copy_attributes(Sections sec)
-//{
-//	//for (int j = 0; j <= sec.attributes_counter; j++) {
-//		//for (int i = 0; i < 1; i++) {
-//			//Attribute_append(sec.attributes[0].GetAttr(0), sec.attributes[0].GetAttr(0));
-//		//}
-//		//cout << "asdf";
-//	//}
-//}
+bool Sections::is_selector_exists(String name)
+{
+	for (int i = 0; i < selectors.GetSize(); i++) {
+		if (selectors[i].HasElement(name)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+void Sections::remove()
+{
+	selectors.clear();
+	attributes.clear();
+}
+
+void Sections::removeAttribute(String name)
+{
+	for (int i = 0; i < attributes_counter; i++) {
+		if (attributes[i].remove_element(name)) {
+			return;
+		}
+	}
+}

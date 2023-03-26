@@ -16,6 +16,16 @@ String Selectors::GetElement(int index)
 	return array[index];
 }
 
+bool Selectors::HasElement(String name)
+{
+	for (int i = 0; i < length; i++) {
+		if (array[i] == name) {
+			return true;
+		}
+	}
+	return false;
+}
+
 void Selectors::Print()
 {
 	for (int i = 0; i < length; i++) {

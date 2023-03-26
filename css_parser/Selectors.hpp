@@ -11,4 +11,5 @@ public:
 	void Print();
 	void append (String line);
 	String GetElement(int index);
+	bool HasElement(String name);
 };

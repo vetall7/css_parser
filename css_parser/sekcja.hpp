@@ -20,8 +20,10 @@ public:
 	int GetSelectorsCounter();
 	int GetAttributesCounter();
 	String GetSelector(int index);
-	String GetSttributeValue(String name);
-	/*bool is_empty();
-	void copy_attributes(Sections sec);*/
+	String GetAttributeValue(String name);
+	bool is_attribute_exists(String name);
+	bool is_selector_exists(String name);
+	void remove();
+	void removeAttribute(String name);
 };
 

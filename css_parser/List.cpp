@@ -37,23 +37,31 @@ void list<T>::clear() {
 	}
 }
 
-//template<typename T>
-//void list<T>::insert(T data, int index) {
-//	if (index == 0) {
-//		head->data = data;
-//	}
-//	else {
-//		Node<T>* element = new Node<T>(data);
-//		Node<T>* temp1 = this->head;
-//		Node<T>* temp2 = this->head;
-//		for (int i = 0; i < index; i++) {
-//			temp1 = temp1->pNext;
-//			if (i == index - 2) temp2 = temp1;
-//		}
-//		temp2->pNext = element;
-//		element->pNext = temp1;
-//	}
-//}
+template<typename T>
+void list<T>::remove_element(size_t index)
+{
+	if (index >= Size) {
+		return;
+	}
+	if (index == 0) {
+		pop_front();
+		return;
+	}
+	if (index == Size - 1) {
+		pop_back();
+		return;
+	}
+	Node<T>* current = head;
+	int i = 0;
+	while (i != index) {
+		current = current->pNext;
+		i++;
+	}
+	current->pPrior->pNext = current->pNext;
+	current->pNext->pPrior = current->pPrior;
+	delete current;
+	Size--;
+}
 
 template<typename T>
 void list<T>::pop_front() {
@@ -101,6 +109,21 @@ void list<T>::push_front(T data) {
 	Size++;
 }
 
+
+template<typename T>
+T& list<T>::search_reverse(int index)
+{
+	Node<T>* current = tail;
+	int counter = GetSize();
+		while (current != nullptr) {
+			if (counter == index) {
+				return current->data;
+			}
+			current = current->pPrior;
+			counter--;
+		}
+		return current->data;
+}
 
 template<typename T>
 T& list<T>::operator[](const int index)

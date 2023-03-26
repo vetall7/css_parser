@@ -14,8 +14,8 @@ public:
 	void pop_front();
 	void pop_back();
 	void clear();
-	//void insert(T data, int index);
-
+	void remove_element(size_t index);
+	T& search_reverse(int index);
 	T& operator[](const int index);
 
 private:

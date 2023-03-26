@@ -14,4 +14,7 @@ public:
 	void append(String name, String value);
 	Single_Attribute GetAttr(size_t index);
 	String FindValue(String name);
+	int FindSameName(String name);
+	void SetValue(size_t index, String value);
+	bool remove_element(String name);
 };

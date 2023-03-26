@@ -1,9 +1,7 @@
 #include  "string.hpp"
-
-#include <iostream>
 using namespace std;
 
-char& String::operator[](int i) {
+char& String::operator[](int i) const{
 	return str[i];    
 }
 
@@ -21,21 +19,41 @@ void String::append(const char a)
 }
 
 
-bool String::operator==(const String& other) {
-	if (this->length != other.length) {
+String::String(String&& other) {
+	this->str = other.str;
+	this->length = other.length;
+	other.str = nullptr;
+	other.length = 0;
+}
+
+String& String::operator=(String&& other) {
+	if (this == &other) {
+		return *this;
+	}
+
+	delete[] str;
+	str = other.str;
+	length = other.length;
+	other.str = nullptr;
+	other.length = 0;
+	return *this;
+}
+
+
+
+bool operator==(const String& a, const String& b) {
+	if (a.length != b.length) {
 		return false;
 	}
-	else {
-		for (int i = 0; i < length; i++) {
-			if (str[i] != other.str[i]) {
-				return false;
-			}
+	for (int i = 0; i < a.length; i++) {
+		if (a.str[i] != b.str[i]) {
+			return false;
 		}
 	}
 	return true;
 }
 
-int String::size() {
+int String::size() const{
 	return length;
 }
 
@@ -50,16 +68,16 @@ String::String(const String& other)
 	str[length] = '\0';
 }
 
-String String::cut(size_t i, size_t j)
+String String::cut(size_t i, size_t j) const
 {
 	String temp;
 	for (int k = i; k < j; k++) {
 		temp.append(str[k]);
 	}
-	return temp;
+	return move(temp);
 }
 
-bool String::is_consist(char a)
+bool String::is_consist(char a) const
 {
 	for (int i = 0; i < length; i++) {
 		if (str[i] == a) {
@@ -70,7 +88,7 @@ bool String::is_consist(char a)
 }
 
 
-void String::Print() {
+void String::Print() const {
 	cout << str << endl;
 }
 
@@ -110,4 +128,8 @@ String::~String() {
 	delete[] str;
 }
 
-
+ostream& operator<<(ostream& os, const String& other)
+{
+	os << other.str;
+	return os;
+}
