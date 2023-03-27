@@ -5,12 +5,10 @@ class String {
 private:
 	char* str;
 	int length;
-	int buffer_size;
 public:
 	String() {
 		str = nullptr;
 		length = 0;
-		buffer_size = 256;
 	}
 	String(const char* str);
 	~String();
@@ -26,4 +24,5 @@ public:
 	String cut(size_t i, size_t j) const;
 	bool is_consist(char a) const;
 	String& operator=(String&& other);
+	void remove_spaces();
 };

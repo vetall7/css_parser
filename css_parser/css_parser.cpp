@@ -5,25 +5,30 @@
 #include <fstream>
 
 
-bool is_selector(String str, char zn) {
+bool is_selector(char zn) {
     if (zn == '{') {
         return true;
     }
     return false;
 }
 
-bool is_attribute(String str, char zn) {
+bool is_attribute(char zn) {
     if (zn == ';') {
         return true;
     }
     return false;
 }
 
-bool is_commands_start(String str, char zn) {
-    if (str == "????") {
-        return true;
+bool is_commands_start(char* input, int size) {
+    if (size != 4) {
+        return false;
     }
-    return false;
+    for (int i = size - 1; i < size - 5; i++) {
+        if (input[i] != '?') {
+            return false;
+        }
+    }
+    return true;
 }
 
 
@@ -110,7 +115,6 @@ void elements_counter(list<Sections>& Section, String str) {
                 counter++;
             }
         }
-        cout << counter;
         if (counter == 0) {
             cout << endl;
         }
@@ -202,8 +206,8 @@ void command_read(list<Sections>& Section) {
                 css_read(Section);
             }
             else if (zn == '?' && str[0] >= '0' && str[0] <= '9') {
-                    counter(Section, str);
-                    is_word_end = true;
+                counter(Section, str);
+                is_word_end = true;
             }
             else if (zn == '\n' && str[0] >= '0' && str[0] <= '9' && str[str.size() - 1] >= '0' && str[str.size() - 1] <= '9') {
                 print_selector(Section, str);
@@ -212,14 +216,14 @@ void command_read(list<Sections>& Section) {
             else if (zn == '\n' && str[0] >= '0' && str[0] <= '9' && str.is_consist('A') && !str.is_consist('?')) {
                 print_attribute(Section, str);
                 is_word_end = true;
-             }
+            }
             else if (zn == '?') {
                 elements_counter(Section, str);
                 is_word_end = true;
             }
             else if (zn == '\n' && str.is_consist('E')) {
                 print_attribute_value(Section, str);
-                is_word_end = true; 
+                is_word_end = true;
             }
             else if (str.is_consist('D') && str.is_consist('*')) {
                 section_remove(Section, str);
@@ -235,48 +239,57 @@ void command_read(list<Sections>& Section) {
         }
     }
 }
- 
+
 void css_read(list<Sections>& Section) {
     bool is_write = true;
     while (is_write) {
         char zn;
         bool is_word_end = false;
-        String str = "";
+        char input[10000];
+        int i = 0;
         while (!is_word_end) {
-            //cin.get(zn);
+            //cin.get(input[i]);
             zn = getchar();
-            if (is_selector(str, zn)) {
+            if (zn == '\n' || zn == '\t') continue;
+            input[i] = zn;
+            //cout << input[i];
+            if (is_selector(input[i])) {
+                input[i + 1] = '\0';
+                String str(input);
+                str.remove_spaces();
                 Sections a;
                 Section.push_back(a);
-                Section[Section.GetSize()-1].New_selector(str);
+                Section[Section.GetSize() - 1].New_selector(str);
                 //Section[Section.GetSize()-1].PrintSelectors();
                 is_word_end = true;
             }
-            else if (is_attribute(str, zn)) {
-                Section[Section.GetSize()-1].New_attribute(str);
+            else if (is_attribute(input[i])) {
+                input[i + 1] = '\0';
+                String str(input);
+                //cout << str << endl;
+                Section[Section.GetSize() - 1].New_attribute(str);
                 //Section[Section.GetSize()-1].PrintAttributes();
                 is_word_end = true;
             }
-            else if (zn == '}') {
-                if (str.size() != 0) {
-                    Section[Section.GetSize()-1].New_attribute(str);
+            else if (input[i] == '}') {
+                input[i + 1] = '\0';
+                String str(input);
+                //cout << str.size();
+                if (str.size() != 1) {
+                    Section[Section.GetSize() - 1].New_attribute(str);
                     //Section[Section.GetSize()-1].PrintAttributes();
                     is_word_end = true;
                 }
                 continue;
             }
-            if (zn != '\n') { str.append(zn); }
-             /*else if (zn == '\n') {
-                is_word_end = true;
-            }*/
-            if (zn == EOF) {
-                return;
-            }
-            if (is_commands_start(str, zn))
+            //if (zn != '\n') { str.append(zn); }
+
+            if (i >= 3 && input[i - 1] == '?' && input[i - 2] == '?' && input[i - 3] == '?')
             {
                 command_read(Section);
                 return;
             }
+            i++;
         }
     }
 }
@@ -284,8 +297,6 @@ void css_read(list<Sections>& Section) {
 
 int main()
 {
-    static list<Sections> Section;
+    list<Sections> Section;
     css_read(Section);
 }
-
-

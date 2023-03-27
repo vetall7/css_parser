@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include  "string.h "
 using namespace std;
 
@@ -106,15 +107,15 @@ String& String::operator=(const String& other)
 
 
 String::String(const char* str) {
-	length = 0;
-	while (str[length] != '\0') {
-		length++;
+	if (str == nullptr) {
+		this->str = nullptr;
+		length = 0;
 	}
-	this->str = new char[length + 1];
-	for (int i = 0; i < length; i++) {
-		this->str[i] = str[i];
+	else {
+		length = strlen(str);
+		this->str = new char[length + 1];
+		strcpy(this->str, str);
 	}
-	this->str[length] = '\0';
 }
 
 
@@ -126,4 +127,28 @@ ostream& operator<<(ostream& os, const String& other)
 {
 	os << other.str;
 	return os;
+}
+
+void String::remove_spaces() {
+	int spaces_counter = 0;
+	for (int i = 0; i < length; i++) {
+		if (i == ' ') {
+			spaces_counter++;
+		}
+	}
+	if (spaces_counter == 0) {
+		return;
+	}
+	char* temp_arr = new char[length - spaces_counter + 1];
+	int counter = 0;
+	for (int i = 0; i < length; i++) {
+		if (str[i] != ' ') {
+			temp_arr[counter] = str[i];
+			counter++;
+		}
+	}
+	temp_arr[counter] = '\0';
+	delete[] str;
+	str = temp_arr;
+	length -= spaces_counter;
 }

@@ -72,7 +72,7 @@ void Sections::New_selector(String str)
 	if (index != 0) {
 		count = 1;
 	}
-	Selector_append(str.cut(index + count, str.size()));
+	Selector_append(str.cut(index + count, str.size() - 1));
 }
 
 void Sections::New_attribute(String str)
@@ -81,7 +81,7 @@ void Sections::New_attribute(String str)
 	for (int i = 0; i < str.size(); i++) {
 		if (str[i] == ':') {
 			name = str.cut(0, i);
-			value = str.cut(i + 1, str.size());
+			value = str.cut(i + 1, str.size() -1);
 			break;
 		}
 	}
@@ -92,6 +92,7 @@ void Sections::New_attribute(String str)
 			return;
 		}
 	}
+	name.remove_spaces();
 	Attribute_append(name, value);
 }
 
