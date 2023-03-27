@@ -2,7 +2,7 @@
 #include "List.cpp"
 #include "sekcja.h"
 #include <iostream>
-
+#include <fstream>
 
 
 bool is_selector(String str, char zn) {
@@ -191,7 +191,8 @@ void command_read(list<Sections>& Section) {
         bool is_word_end = false;
         String str = "";
         while (!is_word_end) {
-            cin.get(zn);
+            //cin.get(zn);
+            zn = getchar();
             if (zn != '\n') { str.append(zn); }
             if (str == "?") {
                 cout << "? == " << Section.GetSize() << endl;
@@ -228,9 +229,9 @@ void command_read(list<Sections>& Section) {
                 attribute_remove(Section, str);
                 is_word_end = true;
             }
-            /*else if (zn == '\n') {
-                is_word_end = true;
-            }*/
+            else if (zn == EOF) {
+                return;
+            }
         }
     }
 }
@@ -242,7 +243,8 @@ void css_read(list<Sections>& Section) {
         bool is_word_end = false;
         String str = "";
         while (!is_word_end) {
-            cin.get(zn);
+            //cin.get(zn);
+            zn = getchar();
             if (is_selector(str, zn)) {
                 Sections a;
                 Section.push_back(a);
@@ -267,9 +269,13 @@ void css_read(list<Sections>& Section) {
              /*else if (zn == '\n') {
                 is_word_end = true;
             }*/
+            if (zn == EOF) {
+                return;
+            }
             if (is_commands_start(str, zn))
             {
                 command_read(Section);
+                return;
             }
         }
     }

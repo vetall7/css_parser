@@ -18,7 +18,6 @@ void String::append(const char a)
 	str = str2;
 }
 
-
 String::String(String&& other) {
 	this->str = other.str;
 	this->length = other.length;
