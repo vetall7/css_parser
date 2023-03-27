@@ -130,25 +130,60 @@ ostream& operator<<(ostream& os, const String& other)
 }
 
 void String::remove_spaces() {
-	int spaces_counter = 0;
+		int spaces_counter = 0;
+		for (int i = 0; i < length; i++) {
+			if (str[i] == ' ') {
+				spaces_counter++;
+			}
+		}
+		if (spaces_counter == 0) {
+			return;
+		}
+		char* temp_arr = new char[length - spaces_counter + 1];
+		int counter = 0;
+		for (int i = 0; i < length; i++) {
+			if (str[i] != ' ') {
+				temp_arr[counter] = str[i];
+				counter++;
+			}
+		}
+		temp_arr[counter] = '\0';
+		delete[] str;
+		str = temp_arr;
+		length -= spaces_counter;
+}
+
+
+void String::remove_selectors_spaces() {
+	int num_commas = 0;
+	
 	for (int i = 0; i < length; i++) {
-		if (i == ' ') {
-			spaces_counter++;
+		if (str[i] == ',') {
+			num_commas++;
 		}
 	}
-	if (spaces_counter == 0) {
-		return;
+	if (num_commas == 0) {
+		return; 
 	}
-	char* temp_arr = new char[length - spaces_counter + 1];
-	int counter = 0;
+	
+	char* new_str = new char[length - num_commas + 1];
+	int j = 0; 
+	bool inside_comma = false; 
 	for (int i = 0; i < length; i++) {
-		if (str[i] != ' ') {
-			temp_arr[counter] = str[i];
-			counter++;
+		if (str[i] == ',') {
+			new_str[j] = str[i];
+			j++;
+			inside_comma = true;
+		}
+		else if (str[i] != ' ' || inside_comma) {
+			new_str[j] = str[i];
+			j++;
+			if (inside_comma && str[i] != ' ') {
+				inside_comma = false;			}
 		}
 	}
-	temp_arr[counter] = '\0';
-	delete[] str;
-	str = temp_arr;
-	length -= spaces_counter;
+	new_str[j] = '\0'; 
+	delete[] str; 
+	str = new_str;
+	length -= num_commas * 2;
 }

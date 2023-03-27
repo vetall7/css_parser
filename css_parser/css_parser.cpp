@@ -115,12 +115,9 @@ void elements_counter(list<Sections>& Section, String str) {
                 counter++;
             }
         }
-        if (counter == 0) {
-            cout << endl;
-        }
-        else {
+        
             cout << temp << ",A,? == " << counter << endl;
-        }
+        
     }
     else if (str.is_consist('S')) {
         for (int i = 0; i < Section.GetSize(); i++) {
@@ -128,12 +125,9 @@ void elements_counter(list<Sections>& Section, String str) {
                 counter++;
             }
         }
-        if (counter == 0) {
-            cout << endl;
-        }
-        else {
+        
             cout << temp << ",S,? == " << counter << endl;
-        }
+        
     }
 }
 
@@ -256,7 +250,7 @@ void css_read(list<Sections>& Section) {
             if (is_selector(input[i])) {
                 input[i + 1] = '\0';
                 String str(input);
-                str.remove_spaces();
+                //str.remove_selectors_spaces();
                 Sections a;
                 Section.push_back(a);
                 Section[Section.GetSize() - 1].New_selector(str);

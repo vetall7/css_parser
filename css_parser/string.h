@@ -25,4 +25,5 @@ public:
 	bool is_consist(char a) const;
 	String& operator=(String&& other);
 	void remove_spaces();
+	void remove_selectors_spaces();
 };
