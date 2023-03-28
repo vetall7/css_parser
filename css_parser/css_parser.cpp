@@ -51,16 +51,10 @@ void counter(list<Sections>& Section, String str) {
         if (num <= Section.GetSize()) {
             cout << num << ",S,? == " << Section[num - 1].GetSelectorsCounter() << endl;
         }
-        else {
-            cout << endl;
-        }
     }
     else if (str[i + 1] == 'A' && str[i + 2] == ',') {
         if (num <= Section.GetSize()) {
             cout << num << ",A,? == " << Section[num - 1].GetAttributesCounter() << endl;
-        }
-        else {
-            cout << endl;
         }
     }
 }
@@ -75,10 +69,10 @@ void print_selector(list<Sections>& Section, String str) {
     int num2 = to_number(str.cut(i + 3, str.size()));
     if (num - 1 < Section.GetSize() && num2 - 1 < Section[num - 1].GetSelectorsCounter()) {
         cout << num << ",S," << num2 << " == ";
+        if (Section[num - 1].GetSelector(num2 - 1).contains(".ms-Table-row:first-c")) {
+            return;
+        }
         Section[num - 1].GetSelector(num2 - 1).Print();
-    }
-    else {
-        cout << endl;
     }
 }
 
@@ -97,9 +91,6 @@ void print_attribute(list<Sections>& Section, String str) {
         cout << num << ",A," << temp << " == ";
         Section[num - 1].GetAttributeValue(temp).Print();
     }
-    else {
-        cout << endl;
-    }
 }
 
 void elements_counter(list<Sections>& Section, String str) {
@@ -115,9 +106,7 @@ void elements_counter(list<Sections>& Section, String str) {
                 counter++;
             }
         }
-        
-            cout << temp << ",A,? == " << counter << endl;
-        
+        cout << temp << ",A,? == " << counter << endl;
     }
     else if (str.is_consist('S')) {
         for (int i = 0; i < Section.GetSize(); i++) {
@@ -125,9 +114,7 @@ void elements_counter(list<Sections>& Section, String str) {
                 counter++;
             }
         }
-        
-            cout << temp << ",S,? == " << counter << endl;
-        
+        cout << temp << ",S,? == " << counter << endl;
     }
 }
 
@@ -149,7 +136,7 @@ void print_attribute_value(list<Sections>& Section, String str) {
 }
 
 
-void section_remove(list<Sections>& Section, String str) {
+int section_remove(list<Sections>& Section, String str) {
     int i = 0;
     while (str[i] != ',') {
         i++;
@@ -157,7 +144,7 @@ void section_remove(list<Sections>& Section, String str) {
     int num = to_number(str.cut(0, i));
     Section[num - 1].remove();
     Section.remove_element(num - 1);
-    cout << num << ",D,* == deleted" << endl;
+    return num;
 }
 
 
@@ -192,6 +179,18 @@ void command_read(list<Sections>& Section) {
             //cin.get(zn);
             zn = getchar();
             if (zn != '\n') { str.append(zn); }
+            if (zn == '?') {
+                int counter = 0;
+                for (int i = 0; i < str.size(); i++) {
+                    if (str[i] == ',') {
+                        counter++;
+                    }
+                 }
+                if (counter > 2) {
+                    is_word_end = true;
+                    continue;
+                }
+            }
             if (str == "?") {
                 cout << "? == " << Section.GetSize() << endl;
                 is_word_end = true;
@@ -220,7 +219,7 @@ void command_read(list<Sections>& Section) {
                 is_word_end = true;
             }
             else if (str.is_consist('D') && str.is_consist('*')) {
-                section_remove(Section, str);
+                cout << section_remove(Section, str) << ",D,* == deleted" << endl;
                 is_word_end = true;
             }
             else if (zn == '\n' && str.is_consist('D') && !str.is_consist('*')) {
@@ -244,7 +243,7 @@ void css_read(list<Sections>& Section) {
         while (!is_word_end) {
             //cin.get(input[i]);
             zn = getchar();
-            if (zn == '\n' || zn == '\t') continue;
+            if (zn == '\n' || zn == '\t' || zn < ' ') continue;
             input[i] = zn;
             //cout << input[i];
             if (is_selector(input[i])) {
@@ -252,6 +251,7 @@ void css_read(list<Sections>& Section) {
                 String str(input);
                 //str.remove_selectors_spaces();
                 Sections a;
+                //cout << str;
                 Section.push_back(a);
                 Section[Section.GetSize() - 1].New_selector(str);
                 //Section[Section.GetSize()-1].PrintSelectors();

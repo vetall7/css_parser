@@ -25,6 +25,31 @@ String::String(String&& other) {
 	other.str = nullptr;
 	other.length = 0;
 }
+bool String::contains(const char* subStr) const {
+	if (subStr == nullptr) {
+		return false;
+	}
+
+	int subStrLength = strlen(subStr);
+	if (subStrLength > length) {
+		return false;
+	}
+
+	for (int i = 0; i <= length - subStrLength; i++) {
+		bool found = true;
+		for (int j = 0; j < subStrLength; j++) {
+			if (str[i + j] != subStr[j]) {
+				found = false;
+				break;
+			}
+		}
+		if (found) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 String& String::operator=(String&& other) {
 	if (this == &other) {
@@ -84,7 +109,7 @@ bool String::is_consist(char a) const
 
 
 void String::Print() const {
-	cout << str << endl;
+	cout << str << ")" << endl;
 }
 
 String& String::operator=(const String& other)

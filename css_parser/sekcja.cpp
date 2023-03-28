@@ -59,11 +59,26 @@ void Sections::New_selector(String str)
 	int index = 0;
 	for (int i = 0; i < str.size(); i++) {
 		if (str[i] == ',') {
+			int k = i;
 			if (index == 0) {
-				Selector_append(str.cut(index, i));
+				while (str[index] == ' ') {
+					index++;
+				}
+				while (str[k-1] == ' ') {
+					k--;
+				}
+				Selector_append(str.cut(index, k));
+				//cout << str.cut(index, k);
 			}
 			else {
-				Selector_append(str.cut(index + 1, i));
+				while (str[index + 1] == ' ') {
+					index++;
+				}
+				while (str[k-1] == ' ') {
+					k--;
+				}
+				//cout << str.cut(index + 1, k);
+				Selector_append(str.cut(index + 1, k));
 			}
 			index = i;
 		}
@@ -72,7 +87,15 @@ void Sections::New_selector(String str)
 	if (index != 0) {
 		count = 1;
 	}
-	Selector_append(str.cut(index + count, str.size() - 1));
+	while (str[index+1] == ' ') {
+		index++;
+	}
+	int temp = str.size() - 1;
+	while (str[temp -1 ] == ' ') {
+		temp--;
+	}
+	//cout << str.cut(index + count, temp);
+	Selector_append(str.cut(index + count, temp));
 }
 
 void Sections::New_attribute(String str)

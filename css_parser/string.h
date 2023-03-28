@@ -26,4 +26,5 @@ public:
 	String& operator=(String&& other);
 	void remove_spaces();
 	void remove_selectors_spaces();
+	bool contains(const char* subStr) const;
 };
