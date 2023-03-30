@@ -13,8 +13,8 @@ size_t Attributes::GetSize()
 void Attributes::Print() const
 {
 	for (int i = 0; i < length; i++) {
-		array[i].GetName().Print();
-		array[i].GetValue().Print() ;
+		cout << array[i].GetName() << " " <<
+		array[i].GetValue();
 	}
 }
 
@@ -59,10 +59,12 @@ void Attributes::SetValue(size_t index, String value)
 bool Attributes::remove_element(String name)
 {
 	for (int i = 0; i < length; i++) {
-		if (array[i].GetName() == name) {
-			for (int j = i; j < length; j++) { 
-				array[j] = array[j + 1];
+		if (array[i].GetName().containString(name) != -1) {
+			if (i == length) {
+				length--;
+				return true;
 			}
+			array[i] = array[length];
 			length--;
 			return true;
 		}

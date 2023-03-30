@@ -51,6 +51,28 @@ bool String::contains(const char* subStr) const {
 	return false;
 }
 
+int String::containString(const String& other) const {
+	unsigned int lengthString = strlen(this->str);
+	unsigned int lengthSubString = strlen(other.str);
+	bool flag = false;
+	int index = -1;;
+	for (size_t i = 0; i < lengthString; i++) {
+		if (!flag && lengthSubString > lengthString - i) {
+			return -1;
+		}
+		if (!flag && this->str[i] == *other.str) {
+			flag = true;
+			index = i;
+		}
+		if (this->str[i] != other.str[i - index]) {
+			flag = false;
+		}
+		if (i - index == lengthSubString - 1 && flag) return index;
+	}
+	return -1;
+}
+
+
 String& String::operator=(String&& other) {
 	if (this == &other) {
 		return *this;
@@ -109,7 +131,7 @@ bool String::is_consist(char a) const
 
 
 void String::Print() const {
-	cout << str << ")" << endl;
+	cout << str;
 }
 
 String& String::operator=(const String& other)

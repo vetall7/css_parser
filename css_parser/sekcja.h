@@ -24,7 +24,7 @@ public:
 	bool is_attribute_exists(String name);
 	bool is_selector_exists(String name);
 	void remove();
-	void removeAttribute(String name);
+	bool removeAttribute(String name);
 	Sections(const Sections& other);
 	Sections& operator=(const Sections& other);
 };

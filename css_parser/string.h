@@ -11,6 +11,7 @@ public:
 		length = 0;
 	}
 	String(const char* str);
+	int containString(const String& other) const;
 	~String();
 	void Print() const;
 	String& operator=(const String& other);

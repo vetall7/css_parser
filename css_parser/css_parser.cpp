@@ -69,10 +69,8 @@ void print_selector(list<Sections>& Section, String str) {
     int num2 = to_number(str.cut(i + 3, str.size()));
     if (num - 1 < Section.GetSize() && num2 - 1 < Section[num - 1].GetSelectorsCounter()) {
         cout << num << ",S," << num2 << " == ";
-        if (Section[num - 1].GetSelector(num2 - 1).contains(".ms-Table-row:first-c")) {
-            return;
-        }
         Section[num - 1].GetSelector(num2 - 1).Print();
+        cout << endl;
     }
 }
 
@@ -90,6 +88,7 @@ void print_attribute(list<Sections>& Section, String str) {
     if (!(Section[num - 1].GetAttributeValue(temp) == "")) {
         cout << num << ",A," << temp << " == ";
         Section[num - 1].GetAttributeValue(temp).Print();
+        cout << endl;
     }
 }
 
@@ -101,7 +100,8 @@ void elements_counter(list<Sections>& Section, String str) {
     String temp = str.cut(0, i);
     int counter = 0;
     if (str.is_consist('A')) {
-        for (int i = 0; i < Section.GetSize(); i++) {
+        //for (Sections element : Section) {
+        for (int i = 0; i < Section.GetSize(); i++){
             if (Section[i].is_attribute_exists(temp)) {
                 counter++;
             }
@@ -109,7 +109,8 @@ void elements_counter(list<Sections>& Section, String str) {
         cout << temp << ",A,? == " << counter << endl;
     }
     else if (str.is_consist('S')) {
-        for (int i = 0; i < Section.GetSize(); i++) {
+        //for (Sections element : Section ) {
+        for (int i = 0; i < Section.GetSize(); i++){
             if (Section[i].is_selector_exists(temp)) {
                 counter++;
             }
@@ -130,6 +131,7 @@ void print_attribute_value(list<Sections>& Section, String str) {
         if (Section.search_reverse(i).is_selector_exists(selec_tmp) && Section.search_reverse(i).is_attribute_exists(attribute_tmp)) {
             cout << selec_tmp << ",E," << attribute_tmp << " == ";
             Section.search_reverse(i).GetAttributeValue(attribute_tmp).Print();
+            cout << endl;
             break;
         }
     }
@@ -149,24 +151,28 @@ int section_remove(list<Sections>& Section, String str) {
 
 
 void attribute_remove(list<Sections>& Section, String str) {
+    //if (str.contains("padding")) {
+    //    Section[18].PrintAttributes();
+    //    //cout << str << " ";
+    //    return;
+    //}
     int i = 0;
     while (str[i] != ',') {
         i++;
     }
     int num = to_number(str.cut(0, i));
     String temp = str.cut(i + 3, str.size());
-    Section[num - 1].removeAttribute(temp);
-    if (Section[num - 1].GetAttributesCounter() == 0) {
-        Section[num - 1].remove();
-        Section.remove_element(num - 1);
+    if (Section[num - 1].removeAttribute(temp)){
+        if (Section[num - 1].GetAttributesCounter() == 0) {
+            Section[num - 1].remove();
+            Section.remove_element(num - 1);
+        }
+        cout << num << ",D," << temp << " == deleted" << endl;
     }
-    cout << num << ",D," << temp << " == deleted" << endl;
 }
 
 
-
 void css_read(list<Sections>& Section);
-
 
 
 void command_read(list<Sections>& Section) {
@@ -176,7 +182,6 @@ void command_read(list<Sections>& Section) {
         bool is_word_end = false;
         String str = "";
         while (!is_word_end) {
-            //cin.get(zn);
             zn = getchar();
             if (zn != '\n') { str.append(zn); }
             if (zn == '?') {
@@ -186,7 +191,7 @@ void command_read(list<Sections>& Section) {
                         counter++;
                     }
                  }
-                if (counter > 2) {
+                if (counter != 2 && counter != 0) {
                     is_word_end = true;
                     continue;
                 }
@@ -202,7 +207,11 @@ void command_read(list<Sections>& Section) {
                 counter(Section, str);
                 is_word_end = true;
             }
-            else if (zn == '\n' && str[0] >= '0' && str[0] <= '9' && str[str.size() - 1] >= '0' && str[str.size() - 1] <= '9') {
+            else if (zn == '\n' && str[0] >= '0' && str[0] <= '9' && str[str.size() - 1] >= '0' && str[str.size() - 1] <= '9'){
+                if (!str.is_consist('S')) {
+                    is_word_end = true;
+                    continue;
+                }
                 print_selector(Section, str);
                 is_word_end = true;
             }
@@ -218,11 +227,11 @@ void command_read(list<Sections>& Section) {
                 print_attribute_value(Section, str);
                 is_word_end = true;
             }
-            else if (str.is_consist('D') && str.is_consist('*')) {
+            else if (str.contains(",D,*")) {
                 cout << section_remove(Section, str) << ",D,* == deleted" << endl;
                 is_word_end = true;
             }
-            else if (zn == '\n' && str.is_consist('D') && !str.is_consist('*')) {
+            else if (zn == '\n' && str.contains(",D,") && !str.is_consist('*')) {
                 attribute_remove(Section, str);
                 is_word_end = true;
             }
@@ -251,7 +260,7 @@ void css_read(list<Sections>& Section) {
                 String str(input);
                 //str.remove_selectors_spaces();
                 Sections a;
-                //cout << str;
+         
                 Section.push_back(a);
                 Section[Section.GetSize() - 1].New_selector(str);
                 //Section[Section.GetSize()-1].PrintSelectors();
@@ -261,6 +270,10 @@ void css_read(list<Sections>& Section) {
                 input[i + 1] = '\0';
                 String str(input);
                 //cout << str << endl;
+                //if (str.contains("padding")) {
+                //    //cout << Section.GetSize()-1 << str.cut(20,str.size()-1) << " ";
+                //    cout << str;
+                //}
                 Section[Section.GetSize() - 1].New_attribute(str);
                 //Section[Section.GetSize()-1].PrintAttributes();
                 is_word_end = true;

@@ -128,12 +128,24 @@ T& list<T>::search_reverse(int index)
 template<typename T>
 T& list<T>::operator[](const int index) const
 {
-	Node<T>* curr = this->head;
-	int counter = 0;
+	//if (index < Size / 2) {
+		Node<T>* curr = this->head;
+		int counter = 0;
 
-	while (counter - 1 != index - 1) {
-		curr = curr->pNext;
-		counter++;
-	}
-	return curr->data;
+		while (counter != index ) {
+			curr = curr->pNext;
+			counter++;
+		}
+		return curr->data;
+	//}
+	/*else {
+		Node<T>* curr = this->tail;
+		int counter = 0;
+
+		while (counter != index) {
+			curr = curr->pPrior;
+			counter++;
+		}
+		return curr->data;
+	}*/
 }

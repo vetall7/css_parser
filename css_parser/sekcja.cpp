@@ -8,6 +8,11 @@ Sections::Sections()
 
 void Sections::Selector_append(String line)
 {
+	for (int i = 0; i < selectors_counter; i++) {
+			if (selectors[i].HasElement(line)) {
+				return;
+			}
+	}
 	if (selectors_counter == 0) {
 		Selectors selc;
 		selc.append(line);
@@ -104,7 +109,15 @@ void Sections::New_attribute(String str)
 	for (int i = 0; i < str.size(); i++) {
 		if (str[i] == ':') {
 			name = str.cut(0, i);
-			value = str.cut(i + 1, str.size() -1);
+			while (str[i+1] == ' ') {
+				i++;
+			}
+			int k = -1;
+			while (str[str.size() + k-1] == ' ') {
+				k--;
+			}
+			value = str.cut(i + 1, str.size() + k);
+			//cout << value;
 			break;
 		}
 	}
@@ -116,8 +129,10 @@ void Sections::New_attribute(String str)
 		}
 	}
 	name.remove_spaces();
+
 	Attribute_append(name, value);
 }
+
 
 int Sections::GetSelectorsCounter()
 {
@@ -171,13 +186,14 @@ void Sections::remove()
 	attributes.clear();
 }
 
-void Sections::removeAttribute(String name)
+bool Sections::removeAttribute(String name)
 {
 	for (int i = 0; i < attributes_counter; i++) {
 		if (attributes[i].remove_element(name)) {
-			return;
+			return true;
 		}
 	}
+	return false;
 }
 
 Sections::Sections(const Sections& other)
