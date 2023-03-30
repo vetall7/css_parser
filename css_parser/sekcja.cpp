@@ -121,6 +121,7 @@ void Sections::New_attribute(String str)
 			break;
 		}
 	}
+	name.remove_spaces();
 	for (int i = 0; i < attributes_counter; i++) {
 		int index = attributes[i].FindSameName(name);
 		if (index != -1){
@@ -128,8 +129,7 @@ void Sections::New_attribute(String str)
 			return;
 		}
 	}
-	name.remove_spaces();
-
+	//cout << name << endl;
 	Attribute_append(name, value);
 }
 
@@ -152,7 +152,7 @@ String Sections::GetSelector(int index)
 String Sections::GetAttributeValue(String name) 
 {
 	for (int i = 0; i < attributes_counter; i++) {
-		String temp = attributes[i].FindValue(name);
+		String temp = attributes[i].FindValue_by_name(name);
 		if ( !(temp == "")) {
 			return temp;
 		}

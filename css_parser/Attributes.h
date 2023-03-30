@@ -14,6 +14,7 @@ public:
 	void append(String name, String value);
 	Single_Attribute GetAttr(size_t index) const;
 	String FindValue(String name) const;
+	String FindValue_by_name(String name) const;
 	int FindSameName(String name) const;
 	void SetValue(size_t index, String value);
 	bool remove_element(String name);

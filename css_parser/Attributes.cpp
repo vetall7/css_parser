@@ -33,6 +33,16 @@ Single_Attribute Attributes::GetAttr(size_t index) const
 String Attributes::FindValue(String name) const
 {
 	for (int i = 0; i < length; i++) {
+		if (array[i].GetName().containString(name) != -1) {
+			return array[i].GetValue();
+		}
+	}
+	return "";
+}
+
+String Attributes::FindValue_by_name(String name) const
+{
+	for (int i = 0; i < length; i++) {
 		if (array[i].GetName() == name) {
 			return array[i].GetValue();
 		}

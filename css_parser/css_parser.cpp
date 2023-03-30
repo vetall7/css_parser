@@ -49,12 +49,17 @@ void counter(list<Sections>& Section, String str) {
     int num = to_number(str.cut(0, i));
     if (str[i + 1] == 'S' && str[i + 2] == ',') {
         if (num <= Section.GetSize()) {
-            cout << num << ",S,? == " << Section[num - 1].GetSelectorsCounter() << endl;
+            if (Section[num - 1].is_selector_exists("")) {
+                cout << num << ",S,? == " << 0 << endl;
+            }
+            else {
+                cout << num << ",S,? == " << Section[num - 1].GetSelectorsCounter() << endl;
+            }
         }
     }
     else if (str[i + 1] == 'A' && str[i + 2] == ',') {
         if (num <= Section.GetSize()) {
-            cout << num << ",A,? == " << Section[num - 1].GetAttributesCounter() << endl;
+             cout << num << ",A,? == " << Section[num - 1].GetAttributesCounter() << endl;
         }
     }
 }
@@ -67,7 +72,7 @@ void print_selector(list<Sections>& Section, String str) {
     }
     int num = to_number(str.cut(0, i));
     int num2 = to_number(str.cut(i + 3, str.size()));
-    if (num - 1 < Section.GetSize() && num2 - 1 < Section[num - 1].GetSelectorsCounter()) {
+    if (num - 1 < Section.GetSize() && num2 - 1 < Section[num - 1].GetSelectorsCounter() && !(Section[num - 1].is_selector_exists("") && Section[num - 1].GetSelectorsCounter() == 1) ) {
         cout << num << ",S," << num2 << " == ";
         Section[num - 1].GetSelector(num2 - 1).Print();
         cout << endl;
@@ -138,37 +143,47 @@ void print_attribute_value(list<Sections>& Section, String str) {
 }
 
 
-int section_remove(list<Sections>& Section, String str) {
-    int i = 0;
-    while (str[i] != ',') {
-        i++;
-    }
-    int num = to_number(str.cut(0, i));
-    Section[num - 1].remove();
-    Section.remove_element(num - 1);
-    return num;
-}
-
-
-void attribute_remove(list<Sections>& Section, String str) {
-    //if (str.contains("padding")) {
-    //    Section[18].PrintAttributes();
-    //    //cout << str << " ";
-    //    return;
+void section_remove(list<Sections>& Section, String str) {
+    //if (str.contains("20,D,*") && Section[19].GetAttributesCounter() == 1) {
+    //    cout << Section[19].is_attribute_exists("");
+    //    //Section[19].PrintAttributes();
     //}
     int i = 0;
     while (str[i] != ',') {
         i++;
     }
     int num = to_number(str.cut(0, i));
-    String temp = str.cut(i + 3, str.size());
-    if (Section[num - 1].removeAttribute(temp)){
-        if (Section[num - 1].GetAttributesCounter() == 0) {
-            Section[num - 1].remove();
-            Section.remove_element(num - 1);
-        }
-        cout << num << ",D," << temp << " == deleted" << endl;
+    if (num > Section.GetSize()) {
+        return;
     }
+    Section[num - 1].remove();
+    Section.remove_element(num - 1);
+    cout << num << ",D,* == deleted" << endl;
+}
+
+
+void attribute_remove(list<Sections>& Section, String str) {
+    int i = 0;
+    while (str[i] != ',') {
+        i++;
+    }
+    int num = to_number(str.cut(0, i));
+    String temp = str.cut(i + 3, str.size());
+    bool exists = false;
+    for (int i = 0; i < Section.GetSize(); i++) {
+        if (Section[i].is_attribute_exists(temp)) {
+            exists = true;
+            break;
+        }
+    }
+    if (!exists) { return; }
+    Section[num - 1].removeAttribute(temp);
+    if (Section[num - 1].GetAttributesCounter() == 0 || (Section[num-1].is_attribute_exists("") && Section[num - 1].GetAttributesCounter() == 1)) {
+        Section[num - 1].remove();
+        Section.remove_element(num - 1);
+    }
+    cout << num << ",D," << temp << " == deleted" << endl;
+    
 }
 
 
@@ -190,7 +205,7 @@ void command_read(list<Sections>& Section) {
                     if (str[i] == ',') {
                         counter++;
                     }
-                 }
+                }
                 if (counter != 2 && counter != 0) {
                     is_word_end = true;
                     continue;
@@ -228,7 +243,7 @@ void command_read(list<Sections>& Section) {
                 is_word_end = true;
             }
             else if (str.contains(",D,*")) {
-                cout << section_remove(Section, str) << ",D,* == deleted" << endl;
+                section_remove(Section, str);
                 is_word_end = true;
             }
             else if (zn == '\n' && str.contains(",D,") && !str.is_consist('*')) {
