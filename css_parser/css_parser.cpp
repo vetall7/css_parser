@@ -106,8 +106,8 @@ void elements_counter(list<Sections>& Section, String str) {
     int counter = 0;
     if (str.is_consist('A')) {
         //for (Sections element : Section) {
-        for (int i = 0; i < Section.GetSize(); i++){
-            if (Section[i].is_attribute_exists(temp)) {
+        for ( Sections& element : Section) {
+            if (element.is_attribute_exists(temp)) {
                 counter++;
             }
         }
@@ -115,8 +115,8 @@ void elements_counter(list<Sections>& Section, String str) {
     }
     else if (str.is_consist('S')) {
         //for (Sections element : Section ) {
-        for (int i = 0; i < Section.GetSize(); i++){
-            if (Section[i].is_selector_exists(temp)) {
+        for (Sections& element : Section) {
+            if (element.is_selector_exists(temp)) {
                 counter++;
             }
         }
@@ -132,14 +132,20 @@ void print_attribute_value(list<Sections>& Section, String str) {
     }
     String selec_tmp = str.cut(0, i);
     String attribute_tmp = str.cut(i + 3, str.size());
-    for (int i = Section.GetSize(); i > 0; i--) {
-        if (Section.search_reverse(i).is_selector_exists(selec_tmp) && Section.search_reverse(i).is_attribute_exists(attribute_tmp)) {
-            cout << selec_tmp << ",E," << attribute_tmp << " == ";
-            Section.search_reverse(i).GetAttributeValue(attribute_tmp).Print();
-            cout << endl;
-            break;
+    String selec = "", attribute = "", value = "";
+    for (Sections& element : Section) {
+        if (element.is_selector_exists(selec_tmp) && element.is_attribute_exists(attribute_tmp)) {
+            selec = selec_tmp;
+            attribute = attribute_tmp;
+            value = element.GetAttributeValue(attribute_tmp);
         }
     }
+    if (selec == "" || attribute == "" || value == "") {
+        return;
+    }
+    cout << selec << ",E," << attribute << " == ";
+    value.Print();
+    cout << endl;
 }
 
 
@@ -170,8 +176,8 @@ void attribute_remove(list<Sections>& Section, String str) {
     int num = to_number(str.cut(0, i));
     String temp = str.cut(i + 3, str.size());
     bool exists = false;
-    for (int i = 0; i < Section.GetSize(); i++) {
-        if (Section[i].is_attribute_exists(temp)) {
+    for (Sections& element : Section) {
+        if (element.is_attribute_exists(temp)) {
             exists = true;
             break;
         }
@@ -277,6 +283,7 @@ void css_read(list<Sections>& Section) {
                 Sections a;
          
                 Section.push_back(a);
+
                 Section[Section.GetSize() - 1].New_selector(str);
                 //Section[Section.GetSize()-1].PrintSelectors();
                 is_word_end = true;
