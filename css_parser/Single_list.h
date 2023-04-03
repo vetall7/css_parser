@@ -4,7 +4,7 @@ class single1_list {
 public:
 	single1_list();
 	~single1_list();
-	int GetSize() {
+	size_t GetSize() const{
 		return Size;
 	}
 	void push_back(T data);
@@ -24,12 +24,10 @@ private:
 	public:
 		Node* pNext;
 		T data;
-		Node(T data = T(), Node* pNext = nullptr) {
-			this->data = data;
-			this->pNext = pNext;
+		Node(T data = T(), Node* pNext = nullptr) : data (data) , pNext (pNext){
 		}
 	};
-	int Size;
+	size_t Size;
 	Node<T>* head;
 };
 

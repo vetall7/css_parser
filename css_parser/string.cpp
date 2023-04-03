@@ -30,12 +30,12 @@ bool String::contains(const char* subStr) const {
 		return false;
 	}
 
-	int subStrLength = strlen(subStr);
+	size_t subStrLength = strlen(subStr);
 	if (subStrLength > length) {
 		return false;
 	}
 
-	for (int i = 0; i <= length - subStrLength; i++) {
+	for (size_t i = 0; i <= length - subStrLength; i++) {
 		bool found = true;
 		for (int j = 0; j < subStrLength; j++) {
 			if (str[i + j] != subStr[j]) {
@@ -95,7 +95,7 @@ bool operator==(const String& a, const String& b) {
 	return (memcmp(a.str, b.str, a.length) == 0);
 }
 
-int String::size() const{
+size_t String::size() const{
 	return length;
 }
 
@@ -104,7 +104,7 @@ String::String(const String& other)
 {
 	length = other.length;
 	str = new char[length + 1];
-	for (int i = 0; i < length; i++) {
+	for (size_t i = 0; i < length; i++) {
 		str[i] = other.str[i];
 	}
 	str[length] = '\0';
@@ -113,7 +113,7 @@ String::String(const String& other)
 String String::cut(size_t i, size_t j) const
 {
 	String temp;
-	for (int k = i; k < j; k++) {
+	for (size_t k = i; k < j; k++) {
 		temp.append(str[k]);
 	}
 	return move(temp);
@@ -121,7 +121,7 @@ String String::cut(size_t i, size_t j) const
 
 bool String::is_consist(char a) const
 {
-	for (int i = 0; i < length; i++) {
+	for (size_t i = 0; i < length; i++) {
 		if (str[i] == a) {
 			return true;
 		}
@@ -145,7 +145,7 @@ String& String::operator=(const String& other)
 		length++;
 	}
 	this->str = new char[length + 1];
-	for (int i = 0; i < length; i++) {
+	for (size_t i = 0; i < length; i++) {
 		this->str[i] = other.str[i];
 	}
 	this->str[length] = '\0';
@@ -178,7 +178,7 @@ ostream& operator<<(ostream& os, const String& other)
 
 void String::remove_spaces() {
 		int spaces_counter = 0;
-		for (int i = 0; i < length; i++) {
+		for (size_t i = 0; i < length; i++) {
 			if (str[i] == ' ') {
 				spaces_counter++;
 			}
@@ -188,7 +188,7 @@ void String::remove_spaces() {
 		}
 		char* temp_arr = new char[length - spaces_counter + 1];
 		int counter = 0;
-		for (int i = 0; i < length; i++) {
+		for (size_t i = 0; i < length; i++) {
 			if (str[i] != ' ') {
 				temp_arr[counter] = str[i];
 				counter++;
@@ -198,39 +198,4 @@ void String::remove_spaces() {
 		delete[] str;
 		str = temp_arr;
 		length -= spaces_counter;
-}
-
-
-void String::remove_selectors_spaces() {
-	int num_commas = 0;
-	
-	for (int i = 0; i < length; i++) {
-		if (str[i] == ',') {
-			num_commas++;
-		}
-	}
-	if (num_commas == 0) {
-		return; 
-	}
-	
-	char* new_str = new char[length - num_commas + 1];
-	int j = 0; 
-	bool inside_comma = false; 
-	for (int i = 0; i < length; i++) {
-		if (str[i] == ',') {
-			new_str[j] = str[i];
-			j++;
-			inside_comma = true;
-		}
-		else if (str[i] != ' ' || inside_comma) {
-			new_str[j] = str[i];
-			j++;
-			if (inside_comma && str[i] != ' ') {
-				inside_comma = false;			}
-		}
-	}
-	new_str[j] = '\0'; 
-	delete[] str; 
-	str = new_str;
-	length -= num_commas * 2;
 }

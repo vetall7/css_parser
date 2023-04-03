@@ -11,19 +11,19 @@ private:
 		Node* pNext;
 		Node* pPrior;
 		T data;
-		Node(T data = T(), Node* pPrior = nullptr, Node* pNext = nullptr) {
+		Node(T data = T(), Node* pPrior = nullptr, Node* pNext = nullptr): data(data), pNext(pNext), pPrior(pPrior) {
 			this->data = data;
 			this->pNext = pNext;
 			this->pPrior = pPrior;
 		}
 	};
-	int Size;
+	size_t Size;
 	Node<T>* head;
 	Node<T>* tail;
 public:
 	list();
 	~list();
-	int GetSize() const {
+	size_t GetSize() const {
 		return Size;
 	}
 	void push_back(T data);

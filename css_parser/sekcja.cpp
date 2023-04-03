@@ -1,14 +1,14 @@
 #include "sekcja.h"
 #include <iostream>
-Sections::Sections()
+Section::Section()
 {
 	selectors_counter = 0;
 	attributes_counter = 0;
 }
 
-void Sections::Selector_append(String line)
+void Section::Selector_append(String line)
 {
-	for (int i = 0; i < selectors_counter; i++) {
+	for (size_t i = 0; i < selectors_counter; i++) {
 			if (selectors[i].HasElement(line)) {
 				return;
 			}
@@ -19,7 +19,7 @@ void Sections::Selector_append(String line)
 		selectors.push_back(selc); 
 		selectors_counter++;
 	}
-	else if (selectors[selectors_counter-1].GetSize() == 8) {
+	else if (selectors[selectors_counter-1].GetSize() == ARRAY_SIZE) {
 		Selectors temp;
 		temp.append(line);
 		selectors.push_back(temp);
@@ -30,7 +30,7 @@ void Sections::Selector_append(String line)
 	}
 }
 
-void Sections::Attribute_append(String name, String value)
+void Section::Attribute_append(String name, String value)
 {
 	if (attributes_counter == 0) {
 		Attributes attr;
@@ -38,7 +38,7 @@ void Sections::Attribute_append(String name, String value)
 		attributes.push_back(attr);
 		attributes_counter++;
 	}
-	else if (attributes[attributes_counter - 1].GetSize() == 8) {
+	else if (attributes[attributes_counter - 1].GetSize() == ARRAY_SIZE) {
 		Attributes temp;
 		temp.append(name, value);
 		attributes.push_back(temp);
@@ -49,20 +49,10 @@ void Sections::Attribute_append(String name, String value)
 	}
 }
 
-void Sections::PrintSelectors() 
+void Section::New_selector(String str)
 {
-	selectors[selectors_counter - 1].Print();
-}
-
-void Sections::PrintAttributes() 
-{
-	attributes[attributes_counter - 1].Print();
-}
-
-void Sections::New_selector(String str)
-{
-	int index = 0;
-	for (int i = 0; i < str.size(); i++) {
+	size_t index = 0;
+	for (size_t i = 0; i < str.size(); i++) {
 		if (str[i] == ',') {
 			int k = i;
 			if (index == 0) {
@@ -73,7 +63,6 @@ void Sections::New_selector(String str)
 					k--;
 				}
 				Selector_append(str.cut(index, k));
-				//cout << str.cut(index, k);
 			}
 			else {
 				while (str[index + 1] == ' ') {
@@ -82,7 +71,6 @@ void Sections::New_selector(String str)
 				while (str[k-1] == ' ') {
 					k--;
 				}
-				//cout << str.cut(index + 1, k);
 				Selector_append(str.cut(index + 1, k));
 			}
 			index = i;
@@ -99,14 +87,13 @@ void Sections::New_selector(String str)
 	while (str[temp -1 ] == ' ') {
 		temp--;
 	}
-	//cout << str.cut(index + count, temp);
 	Selector_append(str.cut(index + count, temp));
 }
 
-void Sections::New_attribute(String str)
+void Section::New_attribute(String str)
 {
 	String name, value;
-	for (int i = 0; i < str.size(); i++) {
+	for (size_t i = 0; i < str.size(); i++) {
 		if (str[i] == ':') {
 			name = str.cut(0, i);
 			while (str[i+1] == ' ') {
@@ -117,41 +104,39 @@ void Sections::New_attribute(String str)
 				k--;
 			}
 			value = str.cut(i + 1, str.size() + k);
-			//cout << value;
 			break;
 		}
 	}
 	name.remove_spaces();
-	for (int i = 0; i < attributes_counter; i++) {
-		int index = attributes[i].FindSameName(name);
+	for (size_t i = 0; i < attributes_counter; i++) {
+		size_t index = attributes[i].FindSameName(name);
 		if (index != -1){
 			attributes[i].SetValue(index, value);
 			return;
 		}
 	}
-	//cout << name << endl;
 	Attribute_append(name, value);
 }
 
 
-int Sections::GetSelectorsCounter()
+size_t Section::GetSelectorsCounter()
 {
-	return ((selectors_counter-1) * 8 + selectors[selectors_counter-1].GetSize());
+	return ((selectors_counter-1) * ARRAY_SIZE + selectors[selectors_counter-1].GetSize());
 }
 
-int Sections::GetAttributesCounter() 
+size_t Section::GetAttributesCounter() 
 {
-	return ((attributes_counter - 1) * 8 + attributes[attributes_counter - 1].GetSize());
+	return ((attributes_counter - 1) * ARRAY_SIZE + attributes[attributes_counter - 1].GetSize());
 }
 
-String Sections::GetSelector(int index) 
+String Section::GetSelector(size_t index) 
 {
-	return selectors[index / 8].GetElement(index % 8);
+	return selectors[index / ARRAY_SIZE].GetElement(index % ARRAY_SIZE);
 }
 
-String Sections::GetAttributeValue(String name) 
+String Section::GetAttributeValue(String name) 
 {
-	for (int i = 0; i < attributes_counter; i++) {
+	for (size_t i = 0; i < attributes_counter; i++) {
 		String temp = attributes[i].FindValue_by_name(name);
 		if ( !(temp == "")) {
 			return temp;
@@ -160,9 +145,9 @@ String Sections::GetAttributeValue(String name)
 	return "";
 }
 
-bool Sections::is_attribute_exists(String name) 
+bool Section::is_attribute_exists(String name) 
 {
-	for (int i = 0; i < attributes_counter; i++) {
+	for (size_t i = 0; i < attributes_counter; i++) {
 		if (attributes[i].FindSameName(name) != -1) {
 			return true;
 		}
@@ -170,9 +155,9 @@ bool Sections::is_attribute_exists(String name)
 	return false;
 }
 
-bool Sections::is_selector_exists(String name) 
+bool Section::is_selector_exists(String name) 
 {
-	for (int i = 0; i < selectors.GetSize(); i++) {
+	for (size_t i = 0; i < selectors.GetSize(); i++) {
 		if (selectors[i].HasElement(name)) {
 			return true;
 		}
@@ -180,15 +165,15 @@ bool Sections::is_selector_exists(String name)
 	return false;
 }
 
-void Sections::remove()
+void Section::remove()
 {
 	selectors.clear();
 	attributes.clear();
 }
 
-bool Sections::removeAttribute(String name)
+bool Section::removeAttribute(String name)
 {
-	for (int i = 0; i < attributes_counter; i++) {
+	for (size_t i = 0; i < attributes_counter; i++) {
 		if (attributes[i].remove_element(name)) {
 			return true;
 		}
@@ -196,14 +181,14 @@ bool Sections::removeAttribute(String name)
 	return false;
 }
 
-Sections::Sections(const Sections& other)
+Section::Section(const Section& other)
 	: selectors(other.selectors), attributes(other.attributes),
 	selectors_counter(other.selectors_counter),
 	attributes_counter(other.attributes_counter)
 {
 }
 
-Sections& Sections::operator=(const Sections& other)
+Section& Section::operator=(const Section& other)
 {
 	attributes = other.attributes;
 	selectors_counter = other.selectors_counter;

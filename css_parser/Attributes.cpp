@@ -5,16 +5,15 @@ Attributes::Attributes()
 	length = 0;
 }
 
-size_t Attributes::GetSize()
+size_t Attributes::GetSize() const
 {
 	return length;
 }
 
 void Attributes::Print() const
 {
-	for (int i = 0; i < length; i++) {
-		cout << array[i].GetName() << " " <<
-		array[i].GetValue();
+	for (size_t i = 0; i < length; i++) {
+		cout << array[i].GetName() << " " << array[i].GetValue();
 	}
 }
 
@@ -25,24 +24,9 @@ void Attributes::append(String name, String value)
 	length++;
 }
 
-Single_Attribute Attributes::GetAttr(size_t index) const
-{
-	return array[index];
-}
-
-String Attributes::FindValue(String name) const
-{
-	for (int i = 0; i < length; i++) {
-		if (array[i].GetName().containString(name) != -1) {
-			return array[i].GetValue();
-		}
-	}
-	return "";
-}
-
 String Attributes::FindValue_by_name(String name) const
 {
-	for (int i = 0; i < length; i++) {
+	for (size_t i = 0; i < length; i++) {
 		if (array[i].GetName() == name) {
 			return array[i].GetValue();
 		}
@@ -52,7 +36,7 @@ String Attributes::FindValue_by_name(String name) const
 
 int Attributes::FindSameName(String name) const
 {
-	for (int i = 0;i < length; i++) {
+	for (size_t i = 0;i < length; i++) {
 		if (array[i].GetName() == name) {
 			return i;
 		}
@@ -68,7 +52,7 @@ void Attributes::SetValue(size_t index, String value)
 
 bool Attributes::remove_element(String name)
 {
-	for (int i = 0; i < length; i++) {
+	for (size_t i = 0; i < length; i++) {
 		if (array[i].GetName().containString(name) != -1) {
 			if (i == length) {
 				length--;

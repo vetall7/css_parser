@@ -11,14 +11,14 @@ void Selectors::append(String line)
 	length++;
 }
 
-String Selectors::GetElement(int index) const
+String Selectors::GetElement(size_t index) const
 {
 	return array[index];
 }
 
 bool Selectors::HasElement(String name) const
 {
-	for (int i = 0; i < length; i++) {
+	for (size_t i = 0; i < length; i++) {
 		if (array[i] == name) {
 			return true;
 		}
@@ -36,7 +36,7 @@ Selectors::Selectors(const Selectors& other) {
 
 void Selectors::Print() const
 {
-	for (int i = 0; i < length; i++) {
+	for (size_t i = 0; i < length; i++) {
 		array[i].Print();
 	}
 }

@@ -132,7 +132,6 @@ T& list<T>::operator[](const int index) const
 	if (index < Size / 2) {
 		Node<T>* curr = this->head;
 		int counter = 0;
-		//std::cout << counter;
 		while (counter != index) {
 			curr = curr->pNext;
 			counter++;
@@ -142,7 +141,6 @@ T& list<T>::operator[](const int index) const
 	else {
 		Node<T>* curr = this->tail;
 		int counter = Size - 1;
-		//std::cout << counter;
 		while (counter != index) {
 			curr = curr->pPrior;
 			counter--;

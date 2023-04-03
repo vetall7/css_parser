@@ -3,29 +3,27 @@
 #include "Selectors.h"
 #include "Single_list.h"
 #include "Single_list.cpp"
-class Sections {
+class Section {
 private:
 	single1_list<Selectors>  selectors;
 	single1_list<Attributes> attributes;
 	size_t selectors_counter;
 	size_t attributes_counter;
 public:
-	Sections();
+	Section();
 	void Selector_append(String line);
 	void Attribute_append(String name, String value);
-	void PrintSelectors() ;
-	void PrintAttributes() ;
 	void New_selector(String str);
 	void New_attribute(String str);
-	int GetSelectorsCounter() ;
-	int GetAttributesCounter();
-	String GetSelector(int index) ;
+	size_t GetSelectorsCounter() ;
+	size_t GetAttributesCounter();
+	String GetSelector(size_t index) ;
 	String GetAttributeValue(String name);
 	bool is_attribute_exists(String name);
 	bool is_selector_exists(String name);
 	void remove();
 	bool removeAttribute(String name);
-	Sections(const Sections& other);
-	Sections& operator=(const Sections& other);
+	Section(const Section& other);
+	Section& operator=(const Section& other);
 };
 

@@ -1,19 +1,17 @@
 #pragma once
 #include "string.h"
 #include "single_attribute.h"
-
+#define ARRAY_SIZE 8
 
 class Attributes {
 private:
-	Single_Attribute array[8];
+	Single_Attribute array[ARRAY_SIZE];
 	size_t length;
 public:
 	Attributes();
-	size_t GetSize();
+	size_t GetSize() const;
 	void Print() const;
 	void append(String name, String value);
-	Single_Attribute GetAttr(size_t index) const;
-	String FindValue(String name) const;
 	String FindValue_by_name(String name) const;
 	int FindSameName(String name) const;
 	void SetValue(size_t index, String value);
