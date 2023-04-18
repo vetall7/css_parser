@@ -1,4 +1,5 @@
 #pragma once
+#define NO_STRING -1
 using namespace std;
 #include <iostream>
 class String {

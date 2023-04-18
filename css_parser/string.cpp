@@ -10,7 +10,7 @@ void String::append(const char a)
 {
 	char *str2 = new char[length + 2];
 	if (str != nullptr) {
-		memcpy(str2, str, length);
+		memcpy(str2, str, length);  //kopijuje blok pamieci
 		delete[] str;
 	}
 	str2[length] = a;
@@ -55,10 +55,10 @@ int String::containString(const String& other) const {
 	unsigned int lengthString = strlen(this->str);
 	unsigned int lengthSubString = strlen(other.str);
 	bool flag = false;
-	int index = -1;;
+	int index = NO_STRING;
 	for (size_t i = 0; i < lengthString; i++) {
 		if (!flag && lengthSubString > lengthString - i) {
-			return -1;
+			return NO_STRING;
 		}
 		if (!flag && this->str[i] == *other.str) {
 			flag = true;
@@ -69,7 +69,7 @@ int String::containString(const String& other) const {
 		}
 		if (i - index == lengthSubString - 1 && flag) return index;
 	}
-	return -1;
+	return NO_STRING;
 }
 
 
@@ -92,7 +92,7 @@ bool operator==(const String& a, const String& b) {
 	if (a.length != b.length) {
 		return false;
 	}
-	return (memcmp(a.str, b.str, a.length) == 0);
+	return (memcmp(a.str, b.str, a.length) == 0);  // por?wnuje bloki pamieci
 }
 
 size_t String::size() const{
@@ -116,7 +116,7 @@ String String::cut(size_t i, size_t j) const
 	for (size_t k = i; k < j; k++) {
 		temp.append(str[k]);
 	}
-	return move(temp);
+	return move(temp);  //r-value
 }
 
 bool String::is_consist(char a) const
@@ -161,7 +161,7 @@ String::String(const char* str) {
 	else {
 		length = strlen(str);
 		this->str = new char[length + 1];
-		strcpy(this->str, str);
+		strcpy(this->str, str);   //kopia czarow z str do this->str
 	}
 }
 

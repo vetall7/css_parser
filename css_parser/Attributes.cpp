@@ -53,7 +53,7 @@ void Attributes::SetValue(size_t index, String value)
 bool Attributes::remove_element(String name)
 {
 	for (size_t i = 0; i < length; i++) {
-		if (array[i].GetName().containString(name) != -1) {
+		if (array[i].GetName().containString(name) != NO_STRING) {
 			if (i == length) {
 				length--;
 				return true;

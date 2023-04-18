@@ -1,0 +1,107 @@
+[33mcommit 617bbb14bbcd4d9b5b5c13a2a6a63ed522cd9a5e[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Mon Apr 3 17:46:46 2023 +0200
+
+    before changing
+
+[33mcommit 34dedee24f72b6da025cfcf9995b34c648e57e68[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Fri Mar 31 13:13:33 2023 +0200
+
+    100%
+
+[33mcommit 9e5ba5e7b1b3e6ff89d99bc25cfdafb78364d1ab[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Thu Mar 30 22:23:44 2023 +0200
+
+    9 tests
+
+[33mcommit a9b7093e5fdaea4bf93e53eb7d58f671ee7d5587[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Thu Mar 30 18:04:34 2023 +0200
+
+    !
+
+[33mcommit 07bebeab39337dfc131e5291f4bb73262340a5e3[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Tue Mar 28 22:25:45 2023 +0200
+
+    6 tests works
+
+[33mcommit 160d54b2745628a425a90bc07c638e02e3feed68[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Mon Mar 27 22:07:10 2023 +0200
+
+    fives tests work
+
+[33mcommit 41ceccedb8606b203e4f670aa0b5cc888c10efd5[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Mon Mar 27 20:13:17 2023 +0200
+
+    5 test
+
+[33mcommit 71d6ead032a6101fed83e214349375ec90964a35[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Mon Mar 27 11:33:45 2023 +0200
+
+    check file ending
+
+[33mcommit 0a0ee3836df11106505c30d6a76b556c13d26703[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Sun Mar 26 22:29:51 2023 +0200
+
+    almost
+
+[33mcommit c87866528f71dedf792d6e74e9a9f65101850696[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Sun Mar 26 17:39:28 2023 +0200
+
+    need optimize
+
+[33mcommit 7c08c7d56b6ab5ea1240e596ea410755966b7df4[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Fri Mar 24 23:20:12 2023 +0100
+
+    new functions => new possibilities
+
+[33mcommit 9836faaa2682cb3a2b74bba938c1d66bc5492ece[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Thu Mar 23 22:09:29 2023 +0100
+
+    seperating input in diffent classes
+
+[33mcommit 5f022c63f2911061b452d72fff98322e1d19cc87[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Wed Mar 22 22:09:51 2023 +0100
+
+    new methods in all classes
+
+[33mcommit d52ea63048f7a92f876b892077ac406653921d16[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Tue Mar 21 21:12:36 2023 +0100
+
+    copy constructor, double linked list completed
+
+[33mcommit 892954091adbac4d93ae28393b0c6e53f5679d4e[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Tue Mar 21 19:03:51 2023 +0100
+
+    doubly linked list added
+
+[33mcommit 032e7ccc92b71d9a093f44487fd72ae3fd7e0792[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Mon Mar 20 20:56:54 2023 +0100
+
+    few new files
+
+[33mcommit 40db6f08f83fe500826aa1452698c403816cf0a7[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Mon Mar 20 17:29:40 2023 +0100
+
+    Add project files.
+
+[33mcommit ef670c34ccc56f47180551ac98fa928cadd07f73[m
+Author: vetall7 <shapovalovvit228@gmail.com>
+Date:   Mon Mar 20 17:29:35 2023 +0100
+
+    Add .gitattributes and .gitignore.
