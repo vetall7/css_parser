@@ -119,7 +119,8 @@ void print_attribute_value(list<Section>& Sections, String str) {
     String selec_tmp = str.cut(0, i);
     String attribute_tmp = str.cut(i + 3, str.size());
     String selec = "", attribute = "", value = "";
-    for (Section& element : Sections) {
+    for (Section& element : Sections) {   // compilator changes this code : for (auto it = list.begin(); it != list.end(); ++it) {
+        //Section& i = *it;
         if (element.is_selector_exists(selec_tmp) && element.is_attribute_exists(attribute_tmp)) {
             selec = selec_tmp;
             attribute = attribute_tmp;

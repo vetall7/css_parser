@@ -52,7 +52,7 @@ void Section::Attribute_append(String name, String value)
 void Section::New_selector(String str)
 {
 	size_t index = 0;
-	for (size_t i = 0; i < str.size(); i++) {
+	for (size_t i = 0; i < str.size(); i++) {  
 		if (str[i] == ',') {
 			int k = i;
 			if (index == 0) {
@@ -93,7 +93,7 @@ void Section::New_selector(String str)
 void Section::New_attribute(String str)
 {
 	String name, value;
-	for (size_t i = 0; i < str.size(); i++) {
+	for (size_t i = 0; i < str.size(); i++) {   // attr : val
 		if (str[i] == ':') {
 			name = str.cut(0, i);
 			while (str[i+1] == ' ') {

@@ -40,9 +40,9 @@ public:
 		Node<T>* current_node;
 	public:
 		Iterator(Node<T>* node) : current_node(node) {}
-		bool operator==(const Iterator& other) const {
-			return current_node == other.current_node;
-		}
+		//bool operator==(const Iterator& other) const {
+			//return current_node == other.current_node;
+		//}
 		bool operator!=(const Iterator& other) const {
 			return !(*this == other);
 		}
@@ -60,9 +60,9 @@ public:
 		}
 	};
 
-	//Iterator begin() {
-		//return Iterator(head);
-	//}
+	Iterator begin() {
+		return Iterator(head);
+	}
 
 	Iterator end() {
 		return Iterator(nullptr);
